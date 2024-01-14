@@ -1,0 +1,2 @@
+periodo_simulacion: 20 # Inidad segundos. Por defecto 20 segundos 
+tiempo_simulacion: 60 # Unidad segundos. Por defecto 60 segundos
