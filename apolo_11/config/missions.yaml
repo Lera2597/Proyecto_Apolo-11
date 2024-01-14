@@ -1,0 +1,19 @@
+mision:
+  -ORBONE
+  -CLMN
+  -TMRS
+  -GALXONE
+  -UNKN
+dispositivo:
+  -satelite
+  -nave espacial
+  -vehiculo espacial
+  -traje espacial
+  -robot espacial
+estado_dispositivo:
+  -excelente
+  -bueno
+  -advertencia
+  -defectuoso
+  -inoperable
+  -desconocido
