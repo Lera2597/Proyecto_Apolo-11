@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "apolo-11"
+version = "0.1.0"
+description = ""
+authors = ["Lera2597 <lera25.roas@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
