@@ -1,20 +1,18 @@
-#from src.datos.mission import Mission
-from src.datos.device import Device
 import hashlib
-from datetime import datetime
+
 
 def generar_contenido_log(device: dict) -> str:
     """
-    Genera el contenido para un archivo .log con información semiestructurada.
+    Genera el contenido para los archivos .log basado en los datos recibidos.
 
-    :param device: Objeto de tipo Device.
-    :type device: Device
-    :return: Contenido del archivo .log generado.
+    :param device: Diccionario con los datos de los archivos .log
+    :type device: dict
+    :return: El contenido de los archivos .log
     :rtype: str
     """
     try:
-        # Generar la fecha actual en el formato ddmmyyHHMISS
-        fecha_actual = device['date']#datetime.now().strftime('%d%m%y%H%M%S')
+        # Generar la fecha actual 
+        fecha_actual = device['date']
         
         # Verificar si la misión es conocida o desconocida
         if device['mission'] == "UNKN":
@@ -32,15 +30,14 @@ def generar_contenido_log(device: dict) -> str:
         return mensaje_error
 
 
-
 def calcular_hash(fecha: str, device: dict) -> str:
     """
     Calcula el hash basado en la fecha, misión, tipo de dispositivo y estado del dispositivo.
 
-    :param fecha: La fecha en el formato ddmmyyHHMISS.
+    :param fecha: La fecha actual en el formato ddmmyyHHMISS.
     :type fecha: str
-    :param device: Objeto de tipo Device.
-    :type device: Device
+    :param device: Diccionario que contiene los datos de las misiones
+    :type device: dict
     :return: El hash calculado.
     :rtype: str
     """

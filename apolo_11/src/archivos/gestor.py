@@ -5,24 +5,15 @@ from src.archivos.nombre import generar_nombre_archivo
 from src.archivos.contenido import generar_contenido_log 
 
 
-
 def crear_archivo_log(device: dict, numero: int) -> bool:
     """
-    Crea un archivo .log y lo guarda en el directorio "devices".
+    Crea y guarda los archivos .log en el directorio 'devices'
 
-    :param directorio_salida: Ruta del directorio donde se guardará el archivo .log.
-    :type directorio_salida: str
-    :param nombre_mision: El nombre de la misión.
-    :type nombre_mision: str
-    :param tipo_dispositivo: El tipo de dispositivo.
-    :type tipo_dispositivo: str
-    :param estado_dispositivo: El estado del dispositivo.
-    :type estado_dispositivo: str
-    :param numero: El número del archivo.
+    :param device: Diccionario con los datos de los archivos .log
+    :type device: dict
+    :param numero: El número del archivo
     :type numero: int
-    :param num_registers: Número de registros a generar en la misión.
-    :type num_registers: int
-    :return: True si se creó con éxito el archivo, False en caso contrario.
+    :return: True si se creó y guardó con éxito el archivo, False en caso contrario
     :rtype: bool
     """
     try:
@@ -30,23 +21,20 @@ def crear_archivo_log(device: dict, numero: int) -> bool:
         directorio_salida = Path('devices')
         directorio_salida.mkdir(exist_ok=True)
 
-        #for i in range(num_registers):
         # Obtener el nombre del archivo utilizando la función generar_nombre_archivo
-        #mision = Mission(name_mision=nombre_mision, num_registers=num_registers)
         nombre_archivo = generar_nombre_archivo(device['mission'], numero)  
 
         # Construir la ruta completa del archivo
         ruta_completa = directorio_salida / nombre_archivo
 
-            # Obtener el contenido utilizando la función generar_contenido_log
-        #device = Device(name_mision=nombre_mision, name_device=tipo_dispositivo, num_registers=num_registers)
+        # Obtener el contenido utilizando la función generar_contenido_log
         contenido = generar_contenido_log(device)
 
-            # Abrir el archivo y escribir el contenido
+        # Abrir el archivo y escribir el contenido
         with ruta_completa.open('w') as file:
                 file.write(contenido)
 
-        return True  # Indica que se crearon los archivos con éxito
+        return True  # Indica que se crearon y guardaron los archivos con éxito
 
     except FileNotFoundError as e:
         print(f"Error: No se pudo encontrar o crear el directorio {directorio_salida}. {e}")
@@ -58,10 +46,8 @@ def crear_archivo_log(device: dict, numero: int) -> bool:
 
     except Exception as e:
         # Captura de excepciones generales
-        print(f"Error al crear el archivo: {e}")
+        print(f"Error al crear o guardar el archivo: {e}")
         return False
-
-
 
 
 def realizar_copia_seguridad(directorio_salida: str) -> bool:
