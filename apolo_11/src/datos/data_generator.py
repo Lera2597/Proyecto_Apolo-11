@@ -8,6 +8,12 @@ from .general import (
     path_sys_conf
 )
 def data_generator_init()-> list:
+    """Esta funcion es encarga de generar los registros de todos 
+    los dispositivos y misiones. 
+
+    Returns:
+        list: Lista con todos los registros generados
+    """
     data_missions:dict = leer_yaml(path_missions_conf)
     data_sys:dict = leer_yaml(path_sys_conf)
     simulation_time = data_sys.get("tiempo_simulacion",20)
