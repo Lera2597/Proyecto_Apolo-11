@@ -1,8 +1,5 @@
 import random
 import datetime
-from .general import (
-    leer_yaml
-)
 
 class Device:
     def __init__(self,name_mision:str,name_device:str,num_register:int) -> None:

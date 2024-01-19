@@ -1,6 +1,5 @@
 from .device import Device
 from .general import (
-    leer_yaml,
     Distribute_Register
 )
 class Mission:

@@ -1,4 +1,5 @@
 import time
+from src.archivos.gestor import crear_archivo_log
 from .mission import Mission
 from .general import (
     leer_yaml,
@@ -46,6 +47,11 @@ def data_generator_init()-> list:
                         registers.extend(reg) 
                     finish_period = True
             print(registers)
+            contador = 1
+            for register in registers:
+                crear_archivo_log(register, contador)
+                contador += 1
+            
             
             print()
             print()
