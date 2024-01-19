@@ -1,0 +1,27 @@
+pantalla:
+  size: 50
+  print: "*"
+  option: "Seleccione la primera letra de la opción: "
+  mistake: "Opción no válida. Inténtalo nuevamente."
+menu_principal:
+  cabecera: Menú
+  opciones:
+    - desc: Ejecutar simulación
+      func: e_function
+    - desc: Consultar simulaciones
+      func: while_menu
+    - desc: Modificar archivo de configuración
+      func: m_function
+    - desc: Salir del programa
+      func: s_function
+menu_consulta:
+  cabecera: Consultas
+  opciones:
+    - desc: Ultima ejecución
+      func: u_function
+    - desc: Ejecucion específica
+      func: e_c_function
+    - desc: Totales de la simulación
+      func: t_function
+    - desc: Regresar al menú anterior
+      func: r_function

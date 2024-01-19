@@ -1,7 +1,14 @@
+"""_summary_
+
+:return: _description_
+:rtype: _type_
+"""
 import random
 import datetime
 
 class Device:
+    """_summary_
+    """
     def __init__(self,name_mision:str,name_device:str,num_register:int) -> None:
         self.mision = name_mision
         self.name = name_device
@@ -14,7 +21,7 @@ class Device:
             " ",""
         )
         self.state:str = ""
-        
+
     def Get_Registers(self,name_states_:list)->list:
         """Genera una lista con la cantidad de registros provenientes
         de un unico dispositivo y de una adeterminada mision. Recibe una lista 
@@ -33,4 +40,4 @@ class Device:
         return [{"date":self.date,
                     "mission":self.mision,
                     "device":self.name,
-                    "state": name_states[random.randint(0,len(name_states)-1)]} for _ in range(self.num_register)] 
+                    "state": name_states[random.randint(0,len(name_states)-1)]} for _ in range(self.num_register)]
