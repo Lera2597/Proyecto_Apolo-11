@@ -1,5 +1,6 @@
 import time
-from src.archivos.gestor import crear_archivo_log
+#from src.archivos.gestor import crear_archivo_log
+from archivos.gestor import crear_archivo_log
 from .mission import Mission
 from .general import (
     leer_yaml,
@@ -7,13 +8,12 @@ from .general import (
     path_missions_conf,
     path_sys_conf
 )
-def data_generator_init()-> list:
-    """Esta funcion es encarga de generar los registros de todos 
-    los dispositivos y misiones. 
-
-    Returns:
-        list: Lista con todos los registros generados
+def data_generator_init()-> None:
     """
+    Simula o genera los registros de todos los dispositivos y misiones con un perido de ejecución
+    y durante un tiempo de simulacion establecidos en el archivo de configuración.
+    
+    """    
     data_missions:dict = leer_yaml(path_missions_conf)
     data_sys:dict = leer_yaml(path_sys_conf)
     simulation_time = data_sys.get("tiempo_simulacion",20)
@@ -51,9 +51,4 @@ def data_generator_init()-> list:
             for register in registers:
                 crear_archivo_log(register, contador)
                 contador += 1
-            
-            
-            print()
-            print()
             registers.clear()
-    return [cont] 
