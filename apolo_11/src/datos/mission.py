@@ -33,10 +33,10 @@ class Mission:
         reg_per_dev:list = Distribute_Register(self.num_register,len(name_devices))
         devices = []
         for i in range(len(name_devices)):
-            if(reg_per_dev[i] !=0):
+            if reg_per_dev[i] !=0:
                 devices.append(Device(self.name,name_devices[i],reg_per_dev[i]))
         for disp in devices:
             reg = disp.Get_Registers(name_states_)
             self.registers.extend(reg)
-        
+
         return self.registers
