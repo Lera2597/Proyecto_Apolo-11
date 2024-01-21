@@ -1,8 +1,8 @@
 from pathlib import Path
 from shutil import move
 from datetime import datetime
-from src.archivos.nombre import generar_nombre_archivo
-from src.archivos.contenido import generar_contenido_log 
+from apolo_11.src.archivos.nombre import generar_nombre_archivo
+from apolo_11.src.archivos.contenido import generar_contenido_log 
 
 
 def crear_archivo_log(device: dict, numero: int) -> bool:
