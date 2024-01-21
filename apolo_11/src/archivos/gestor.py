@@ -7,11 +7,7 @@ from pathlib import Path
 from shutil import move
 from datetime import datetime
 from apolo_11.src.archivos.nombre import generar_nombre_archivo
-<<<<<<< HEAD
 from apolo_11.src.archivos.contenido import generar_contenido_log 
-=======
-from apolo_11.src.archivos.contenido import generar_contenido_log
->>>>>>> 2c13c516b67f2249834f50d01222cfbde40e9ad8
 
 
 def crear_archivo_log(device: dict, numero: int) -> bool:
