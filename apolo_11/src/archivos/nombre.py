@@ -1,3 +1,5 @@
+"""_summary_
+"""
 def generar_nombre_archivo(mission: str, numero: int) -> str:
     """
     Genera el nombre de un archivo .log basado en la misión y un número de archivo.
@@ -15,12 +17,12 @@ def generar_nombre_archivo(mission: str, numero: int) -> str:
     try:
         # Verificar si la misión es válida
         misiones_permitidas = ["ORBONE", "CLNM", "TMRS", "GALXONE", "UNKN"]
-        
+
         if mission not in misiones_permitidas:
             raise ValueError(f"Misión no válida. Debe ser una de las siguientes: {', '.join(misiones_permitidas)}")
 
         # Verificar si el número está en el rango especificado
-        if not (1 <= numero <= 1000):
+        if not 1 <= numero <= 1000:
             raise ValueError(f"Número fuera del rango permitido (1-{numero:05d})")
 
         # Formatear el nombre del archivo
@@ -28,4 +30,4 @@ def generar_nombre_archivo(mission: str, numero: int) -> str:
 
     except ValueError as ve:
         # Capturar y relanzar el error con un mensaje específico
-        raise ValueError(f"Error al generar el nombre del archivo: {str(ve)}")
+        raise ValueError(f"Error al generar el nombre del archivo: {str(ve)}") from ve

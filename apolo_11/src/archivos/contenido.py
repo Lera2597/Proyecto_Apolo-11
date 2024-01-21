@@ -1,3 +1,8 @@
+"""_summary_
+
+Returns:
+    _type_: _description_
+"""
 import hashlib
 
 
@@ -11,9 +16,9 @@ def generar_contenido_log(device: dict) -> str:
     :rtype: str
     """
     try:
-        # Generar la fecha actual 
+        # Generar la fecha actual
         fecha_actual = device['date']
-        
+
         # Verificar si la misión es conocida o desconocida
         if device['mission'] == "UNKN":
             # En caso de misión desconocida, utilizar solo fecha el resto es UNKN
@@ -21,7 +26,7 @@ def generar_contenido_log(device: dict) -> str:
         else:
             # Generar contenido con información completa y calcular hash
             contenido = f"Fecha: {fecha_actual}\nMisión: {device['mission']}\nTipo de Dispositivo: {device['device']}\nEstado del Dispositivo: {device['state']}\nHash: {calcular_hash(fecha_actual, device)}"
-            
+
         return contenido
 
     except Exception as e:

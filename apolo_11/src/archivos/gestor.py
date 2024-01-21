@@ -1,8 +1,13 @@
+"""_summary_
+
+Returns:
+    _type_: _description_
+"""
 from pathlib import Path
 from shutil import move
 from datetime import datetime
-from src.archivos.nombre import generar_nombre_archivo
-from src.archivos.contenido import generar_contenido_log 
+from apolo_11.src.archivos.nombre import generar_nombre_archivo
+from apolo_11.src.archivos.contenido import generar_contenido_log
 
 
 def crear_archivo_log(device: dict, numero: int) -> bool:
@@ -22,7 +27,7 @@ def crear_archivo_log(device: dict, numero: int) -> bool:
         directorio_salida.mkdir(exist_ok=True)
 
         # Obtener el nombre del archivo utilizando la función generar_nombre_archivo
-        nombre_archivo = generar_nombre_archivo(device['mission'], numero)  
+        nombre_archivo = generar_nombre_archivo(device['mission'], numero)
 
         # Construir la ruta completa del archivo
         ruta_completa = directorio_salida / nombre_archivo
@@ -32,7 +37,7 @@ def crear_archivo_log(device: dict, numero: int) -> bool:
 
         # Abrir el archivo y escribir el contenido
         with ruta_completa.open('w') as file:
-                file.write(contenido)
+            file.write(contenido)
 
         return True  # Indica que se crearon y guardaron los archivos con éxito
 
