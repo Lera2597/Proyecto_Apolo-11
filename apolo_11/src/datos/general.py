@@ -12,14 +12,18 @@ path_missions_conf:str = os.path.join(os.path.dirname(__file__),'..','..','confi
 path_sys_conf:str = os.path.join(os.path.dirname(__file__),'..','..','config','sys.yaml')
 def Distribute_Register(cantidad:int,num_particiones:int)->list:
     """
-    Reparte o distribuye el valor de "cantidad" en "num_particiones" partes de manera aleatoria
-    Args:
-        cantidad (int): _description_
-        num_particiones (int): _description_
+    Reparte o distribuye el numero de regsitros en un numero 
+    de terminado de partes de manera aleatoria.
 
-    Returns:
-        list: _description_
-    """
+    _extended_summary_
+
+    :param cantidad: Numero de registros
+    :type cantidad: int
+    :param num_particiones: Numero de partisiones
+    :type num_particiones: int
+    :return: Lista con la cantidad de registros por particion
+    :rtype: list
+    """    
     # Generar "num_particiones"-1 números aleatorios que representan los límites
     limites = []
     limites.append(random.randint(1, cantidad))

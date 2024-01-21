@@ -9,7 +9,7 @@ def main() -> None:
     Función principal encargada de la invocación al menú inicial de la aplicación.
     """
     try:
-        with open("apolo_11//config//menu.yaml", "r", encoding="utf8") as file:
+        with open("Proyecto_Apolo-11//apolo_11//config//menu.yaml", "r", encoding="utf8") as file:
             contenido = file.read()
         while_menu(contenido, "menu_principal")
     except FileNotFoundError:
