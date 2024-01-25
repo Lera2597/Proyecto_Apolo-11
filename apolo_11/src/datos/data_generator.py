@@ -62,3 +62,4 @@ def data_generator_init()-> None:
                 crear_archivo_log(register, contador)
                 contador += 1
             registers.clear()
+            
