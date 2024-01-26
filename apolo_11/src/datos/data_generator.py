@@ -15,25 +15,18 @@ def data_generator_init()-> None:
     """    
     data_missions:dict = leer_yaml(path_missions_conf_file)
     data_sys:dict = leer_yaml(path_sys_conf_file)
-    print(data_missions)
-    print(data_sys)
     simulation_time = data_sys.get("tiempo_simulacion",20)
-    simulation_period = data_sys.get("periodo_simulacion",20)
     registers:list = []
     start_time_simulation = time.time()
     finish_simulation:bool = False
-    finish_period:bool = False
     cont:int =0
     Simulation_Cycle_cont:int = 0
     while not finish_simulation:
         Simulation_Cycle_cont +=1
-        finish_period = False
         if (time.time() - start_time_simulation)>simulation_time:
             finish_simulation = True
-        else:
-            start_time_period  = time.time()
+        else:         
             cont +=1
-            cont_aster = 0
             print(f"Cycle #{Simulation_Cycle_cont}")
             registers.extend(Simulation_Cycle(data_missions,data_sys))
             time_elapsed_simulation = time.time() - start_time_simulation
