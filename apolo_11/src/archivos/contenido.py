@@ -1,7 +1,4 @@
-"""_summary_
-
-Returns:
-    _type_: _description_
+""" @Juliana falta aquí un mejor docstring
 """
 import hashlib
 
@@ -22,14 +19,26 @@ def generar_contenido_log(device: dict) -> str:
         # Verificar si la misión es conocida o desconocida
         if device['mission'] == "UNKN":
             # En caso de misión desconocida, utilizar solo fecha el resto es UNKN
-            contenido = f"Fecha: {fecha_actual}\nMisión:  {device['mission']}\nTipo de Dispositivo: desconocido\nEstado del Dispositivo: desconocido\nHash: unknown"
+            contenido = (
+                f"Fecha: {fecha_actual}\n"
+                f"Misión: unknown\n"
+                f"Tipo de Dispositivo: desconocido\n"
+                f"Estado del Dispositivo: desconocido\n"
+                f"Hash: unknown"
+            )
         else:
             # Generar contenido con información completa y calcular hash
-            contenido = f"Fecha: {fecha_actual}\nMisión: {device['mission']}\nTipo de Dispositivo: {device['device']}\nEstado del Dispositivo: {device['state']}\nHash: {calcular_hash(fecha_actual, device)}"
+            contenido = (
+                f"Fecha: {fecha_actual}\n"
+                f"Misión: {device['mission']}\n"
+                f"Tipo de Dispositivo: {device['device']}\n"
+                f"Estado del Dispositivo: {device['state']}\n"
+                f"Hash: {calcular_hash(fecha_actual, device)}"
+            )
 
         return contenido
 
-    except Exception as e:
+    except KeyError as e:  # @Juliana mejoré el Exception para que no fuera tan amplio
         # Manejo de errores
         mensaje_error = f"Error al generar el contenido del archivo .log: {str(e)}"
         return mensaje_error

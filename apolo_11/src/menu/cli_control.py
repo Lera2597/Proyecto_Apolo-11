@@ -7,6 +7,8 @@ from typing import Callable
 from yaml import safe_load
 from apolo_11.src.datos.data_generator import data_generator_init as dgi
 from apolo_11.src.archivos.gestor import realizar_copia_seguridad as rcs
+from apolo_11.src.reportes.consolidado import consolidado as con
+
 
 def print_menu(configuracion: dict, menu: str) -> None:
     """ Imprime el menú de la aplicación o de las consultas
@@ -17,6 +19,7 @@ def print_menu(configuracion: dict, menu: str) -> None:
     :type menu: str
     """
     system("cls" if name == "nt" else "clear")
+
     options: list = [option["desc"] for option in configuracion[menu]["opciones"]]
     des_men: str = configuracion[menu]["cabecera"]
     max_lon: int = max(len(option) for option in options)
@@ -26,6 +29,7 @@ def print_menu(configuracion: dict, menu: str) -> None:
     char: str = configuracion["pantalla"]["print"]
     if len(char) > 1:
         char = char[:1]
+
     print(f"{char}" * (des_men_lon + 2))
     print(f"{char}{des_men.center(des_men_lon)}{char}")
     print(f"{char}" * (des_men_lon + 2))
@@ -33,26 +37,29 @@ def print_menu(configuracion: dict, menu: str) -> None:
         print(f"{char}{option.center(max_lon)}{char}")
     print(f"{char}" * (des_men_lon + 2))
 
+
 def e_function() -> None:
     """ Controla la invocación a la ejecución de la simulación
     """
     system("cls" if name == "nt" else "clear")
-    print("Iniciando ejecución.")
     dgi()
-    print("Ejecución finalizada.")
-    print("Iniciando reportes.")
-    sleep(1) #¡esta pendiente por realizarse!
-    print("Reportes finalizados.")
-    print("Iniciando backup.")
-    rcs("devices")
-    print("Backup finalizado.")
     sleep(2)
+
+    system("cls" if name == "nt" else "clear")
+    con()
+    input("Finalizó el reporte, presiona Enter para continuar...")
+
+    system("cls" if name == "nt" else "clear")
+    rcs("devices")
+    input("Finalizó backup, presiona Enter para continuar...")
+
 
 def m_function() -> None:
     """ Controla la invocación a la modificación del archivo de configuración
     """
     print("Ir a modificar")
     sleep(1)
+
 
 def s_function(texto: str) -> bool:
     """ Controla la salida del programa
@@ -63,6 +70,7 @@ def s_function(texto: str) -> bool:
     :rtype: bool
     """
     select: str = input("¿Desea salir del programa? (S/N) ").upper()
+
     if select == "S":
         return True
     if select == "N":
@@ -70,6 +78,7 @@ def s_function(texto: str) -> bool:
     print(texto)
     sleep(1)
     return False
+
 
 def while_menu(archivo: str, menu: str) -> None:
     """ Controla los menús y sus invocaciones hasta que se cierre el programa
@@ -81,6 +90,7 @@ def while_menu(archivo: str, menu: str) -> None:
     :type menu: str
     """
     conf_menu: dict = safe_load(archivo)
+
     control: bool = True
     while control:
         print_menu(conf_menu, menu)
@@ -88,6 +98,7 @@ def while_menu(archivo: str, menu: str) -> None:
         options: list = [option["desc"] for option in conf_menu[menu]["opciones"]]
         functions: list = [option["func"] for option in conf_menu[menu]["opciones"]]
         cont: int = 0
+
         for option in options:
             if option[0].upper() == select:
                 call: Callable = globals()[functions[cont]]
@@ -103,9 +114,11 @@ def while_menu(archivo: str, menu: str) -> None:
                         control = False
                 break
             cont += 1
+
         if cont == len(options) and control:
             print(f"{conf_menu['pantalla']['mistake']}")
             sleep(1)
+
 
 def u_function() -> None:
     """ Controla la búsqueda de la última ejecución de la simulación
@@ -113,17 +126,20 @@ def u_function() -> None:
     print("Ir a última")
     sleep(1)
 
+
 def e_c_function() -> None:
     """ Controla la búsqueda de una ejecución específica
     """
     print("Ir a específica")
     sleep(1)
 
+
 def t_function() -> None:
     """ Controla la búsqueda de los totales del programa
     """
     print("Ir a totales")
     sleep(1)
+
 
 def r_function() -> bool:
     """ Controla el regreso al menú anterior

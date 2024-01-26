@@ -1,13 +1,10 @@
-"""_summary_
-
-Returns:
-    _type_: _description_
+""" @Juliana falta aquí un mejor docstring
 """
 from pathlib import Path
 from shutil import move
 from datetime import datetime
 from apolo_11.src.archivos.nombre import generar_nombre_archivo
-from apolo_11.src.archivos.contenido import generar_contenido_log 
+from apolo_11.src.archivos.contenido import generar_contenido_log
 
 
 def crear_archivo_log(device: dict, numero: int) -> bool:
@@ -49,11 +46,6 @@ def crear_archivo_log(device: dict, numero: int) -> bool:
         print(f"No se pudo guardar el archivo {ruta_completa}: {e}")
         return False
 
-    except Exception as e:
-        # Captura de excepciones generales
-        print(f"Error al crear o guardar el archivo: {e}")
-        return False
-
 
 def realizar_copia_seguridad(directorio_salida: str) -> bool:
     """
@@ -82,6 +74,6 @@ def realizar_copia_seguridad(directorio_salida: str) -> bool:
 
         return True  # Indica que se realizó con éxito la copia de seguridad
 
-    except Exception as e:
+    except FileNotFoundError as e:  # @Juliana mejoré el Exception para que no fuera tan amplio, no sé si ese sea
         print(f"No se pudo realizar la copia de seguridad: {e}")
         return False

@@ -1,5 +1,7 @@
-"""_summary_
+""" @Juliana falta aquí un mejor docstring
 """
+
+
 def generar_nombre_archivo(mission: str, numero: int) -> str:
     """
     Genera el nombre de un archivo .log basado en la misión y un número de archivo.
