@@ -35,4 +35,5 @@ class Device:
         name_states:list = name_states_
         return [{"date":self.date,
                     "mission":self.mision,
+                    "device":self.name,
                     "state": name_states[random.randint(0,len(name_states)-1)]} for _ in range(self.num_register)]

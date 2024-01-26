@@ -4,12 +4,13 @@
 :rtype: _type_
 """
 import random
-import os
 import yaml
 from yaml.loader import SafeLoader
+from pathlib import Path
 
-path_missions_conf:str = os.path.join(os.path.dirname(__file__),'..','..','config','missions.yaml')
-path_sys_conf:str = os.path.join(os.path.dirname(__file__),'..','..','config','sys.yaml')
+path_missions_conf_file:str = Path("Proyecto_Apolo-11","apolo_11","config","missions.yaml")
+path_sys_conf_file:str = Path("Proyecto_Apolo-11","apolo_11","config","sys.yaml")
+
 def Distribute_Register(cantidad:int,num_particiones:int)->list:
     """
     Reparte o distribuye el numero de regsitros en un numero 
