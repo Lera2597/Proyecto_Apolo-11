@@ -5,11 +5,11 @@ Apolo-11 es un programa desarrollado en Python que simula y consolida registros 
 ## Tabla de Contenido
 
 - [Resumen](#resumen)
-- [Instalación](##instalación)
-- [Uso](##uso)
-- [Recursos](##recursos)
-- [Créditos](##créditos)
-- [Licencia](##licencia)
+- [Instalación](#instalación)
+- [Uso](#uso)
+- [Recursos](#recursos)
+- [Créditos](#créditos)
+- [Licencia](#licencia)
 
 ## Resumen 
 
@@ -56,9 +56,11 @@ Esto iniciará el programa Apolo-11 y te mostrará el menú inicial con las opci
 ## Uso
 
 El programa Apolo-11 ofrece varias funcionalidades que se pueden acceder desde un menú principal. A continuación se muestran algunos ejemplos de cómo utilizar estas funcionalidades:
-
-![image](https://github.com/Lera2597/Proyecto_Apolo-11/assets/77032671/7fc56942-d704-4bb9-adec-cdc4e17c6a72)
-
+<br>
+<br>
+<img src="https://github.com/Lera2597/Proyecto_Apolo-11/assets/77032671/7fc56942-d704-4bb9-adec-cdc4e17c6a72" width="450">
+<br>
+<br>
 
 **Ejecutar Simulación**
 
