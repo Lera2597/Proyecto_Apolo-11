@@ -57,6 +57,9 @@ Esto iniciará el programa Apolo-11 y te mostrará el menú inicial con las opci
 
 El programa Apolo-11 ofrece varias funcionalidades que se pueden acceder desde un menú principal. A continuación se muestran algunos ejemplos de cómo utilizar estas funcionalidades:
 
+![image](https://github.com/Lera2597/Proyecto_Apolo-11/assets/77032671/7fc56942-d704-4bb9-adec-cdc4e17c6a72)
+
+
 **Ejecutar Simulación**
 
 Para ejecutar la simulación y generar archivos .log con información aleatoria para las misiones espaciales, sigue estos pasos:
