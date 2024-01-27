@@ -22,7 +22,7 @@ def generar_contenido_log(device: dict) -> str:
         # Verificar si la misión es conocida o desconocida
         if device['mission'] == "UNKN":
             # En caso de misión desconocida, utilizar solo fecha el resto es UNKN
-            contenido = f"Fecha: {fecha_actual}\nMisión: unknown\nTipo de Dispositivo: {device['device']}\nEstado del Dispositivo: {device['state']}\nHash: unknown"
+            contenido = f"Fecha: {fecha_actual}\nMisión:  {device['mission']}\nTipo de Dispositivo: desconocido\nEstado del Dispositivo: desconocido\nHash: unknown"
         else:
             # Generar contenido con información completa y calcular hash
             contenido = f"Fecha: {fecha_actual}\nMisión: {device['mission']}\nTipo de Dispositivo: {device['device']}\nEstado del Dispositivo: {device['state']}\nHash: {calcular_hash(fecha_actual, device)}"
