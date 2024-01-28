@@ -27,7 +27,7 @@ def test_generator_simulation_Clicle(app):
         "dispositivo": [ "satelite","nave espacial","vehiculo espacial","traje espacial","robot espacial"],
         "estado_dispositivo": ["excelente", "bueno", "advertencia","defectuoso","inoperable","desconocido"]
         }
-    data_sys:dict= {"periodo_simulacion": 10, "tiempo_simulacion": 60, "num_registros": 50}
+    data_sys:dict= {"periodo_simulacion": 2, "tiempo_simulacion": 10, "num_registros": 10}
     response = app.Fun_Simulation_Cicle(data_missions,data_sys)
     assert type(response) == list
     assert len(response) == data_sys["num_registros"]

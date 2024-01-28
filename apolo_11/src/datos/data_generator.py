@@ -35,9 +35,11 @@ def data_generator_init()-> None:
             aux2 =int(100*time_elapsed_simulation/simulation_time)
             print(f"Simulacion: [{'*'*aux2}{'.'*(100-aux2)}]{aux2}% ",end='\r')
             print("")
-            #print(registers)
+            print(registers)
+            input("sdsvsdv")
             contador = 1
             for register in registers:
+                
                 crear_archivo_log(register, contador)
                 contador += 1
             registers.clear()
