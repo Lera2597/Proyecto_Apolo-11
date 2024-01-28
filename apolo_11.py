@@ -6,15 +6,17 @@ from argparse import Namespace
 from pathlib import Path
 from apolo_11.src.menu.cli_control import while_menu
 
+path_config: str = "apolo_11/config"
+
 
 def main(nombre: str) -> None:
     """
     Función principal encargada de la invocación al menú inicial de la aplicación.
     """
     try:
-        dir_conf: Path = Path("apolo_11/config")
+        dir_conf: Path = Path(path_config)
         dir_compl: Path = dir_conf / nombre
-        with dir_compl.open("r", encoding="utf8") as file:
+        with dir_compl.open("r", encoding="utf-8") as file:
             contenido: str = file.read()
         while_menu(contenido, "menu_principal")
     except FileNotFoundError:

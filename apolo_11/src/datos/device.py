@@ -1,8 +1,8 @@
 """ @Luis falta aquí un mejor docstring
 """
 
-import random
-import datetime
+from datetime import datetime
+from random import randint
 
 
 class Device:
@@ -14,7 +14,7 @@ class Device:
         self.mision: str = name_mision
         self.name: str = name_device
         self.num_register: int = num_register
-        self.date: str = datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S").replace(
+        self.date: str = datetime.now().strftime("%d-%m-%Y %H:%M:%S").replace(
             "-", ""
         ).replace(
             ":", ""
@@ -41,4 +41,4 @@ class Device:
         return [{"date": self.date,
                  "mission": self.mision,
                  "device": self.name,
-                 "state": name_states[random.randint(0, len(name_states) - 1)]} for _ in range(self.num_register)]
+                 "state": name_states[randint(0, len(name_states) - 1)]} for _ in range(self.num_register)]

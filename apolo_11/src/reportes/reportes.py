@@ -1,9 +1,11 @@
 """ @Juliana falta aquí un mejor docstring
 """
+
 from pathlib import Path
 from typing import List, Dict
 from pydantic import BaseModel
 from prettytable import PrettyTable
+from apolo_11.src.datos.general import leer_yaml, path_missions_conf, path_sys_conf
 
 
 class DeviceLog(BaseModel):
@@ -27,11 +29,13 @@ def parse_log_file(content: str) -> DeviceLog:
     :return: Objeto DeviceLog con la información del archivo.
     :rtype: DeviceLog
     """
+    data_sys: dict = leer_yaml(path_sys_conf)
+    min_lineas: int = data_sys.get("min_lineas", 5)
     # Dividir el contenido del archivo en líneas
     lines = content.split('\n')
 
     # Verificar si hay suficientes líneas para procesar
-    if len(lines) < 5:
+    if len(lines) < min_lineas:
         raise ValueError("El formato del archivo de registro es incorrecto.")
 
     try:
@@ -116,6 +120,9 @@ def table_decorator(header: str) -> callable:
 def gsct(state_count: Dict):  # generate_state_count_table
     """ @Juliana falta aquí un mejor docstring
     """
+    data_missions: dict = leer_yaml(path_missions_conf)
+    mision_desconocida: str = data_missions.get("mision_desconocida", "Error yaml: mision_desconocida")
+    estado_dispositivo: list = data_missions.get("estado_dispositivo", "Error yaml: estado_dispositivo")
     # Diccionario para realizar el seguimiento de las sumas por Tipo de Dispositivo, Misión y Estado
     total_count_by_device_mission_state = {}
 
@@ -137,13 +144,14 @@ def gsct(state_count: Dict):  # generate_state_count_table
     # Crear la tabla con los totales y líneas divisorias
     table = PrettyTable()
     # Columnas: Misión + Tipos de Dispositivo
-    missions = sorted(set(mission for _, mission, _ in total_count_by_device_mission_state if mission != "UNKN"))
+    missions = sorted(set(mission for _, mission, _ in
+                          total_count_by_device_mission_state if mission != mision_desconocida))
     device_types = sorted(set(device for device, _, _ in total_count_by_device_mission_state))
     table.field_names = ["Dispositivo / Estado", *missions, "Total"]
 
     # Filas: Tipos de Dispositivo + Estados
     for device_type in device_types:
-        for state in ["excelente", "bueno", "advertencia", "defectuoso", "inoperable", "desconocido"]:
+        for state in estado_dispositivo:
             row = [f"{device_type} - {state}"]
             for mission in missions:
                 # Obtener la cantidad total para la combinación de Tipo de Dispositivo, Misión y Estado
@@ -162,7 +170,7 @@ def gsct(state_count: Dict):  # generate_state_count_table
         mission_total = sum(total_count_by_device_mission_state.get((device_type, mission, state), 0)
                             for device_type in device_types
                             for state
-                            in ["excelente", "bueno", "advertencia", "defectuoso", "inoperable", "desconocido"])
+                            in estado_dispositivo)
         total_row.append(mission_total)
     total_row.append(sum(total_row[1:]))
     table.add_row(total_row)
@@ -174,6 +182,8 @@ def gsct(state_count: Dict):  # generate_state_count_table
 def gudt(state_count: Dict):  # generate_unknown_disconnects_table
     """ @Juliana falta aquí un mejor docstring
     """
+    data_missions: dict = leer_yaml(path_missions_conf)
+    estado_desconocido: str = data_missions.get("estado_desconocido", "Error yaml: estado_desconocido")
     # Obtener la lista única de misiones, tipos de dispositivo y estados
     missions = sorted(set(mission for mission, _, _ in state_count.keys()))
     device_types = sorted(set(device for _, device, _ in state_count.keys()))
@@ -181,7 +191,7 @@ def gudt(state_count: Dict):  # generate_unknown_disconnects_table
     table = PrettyTable()
 
     # Configurar los nombres de las columnas
-    table.field_names = ["Misión", "Tipo de Dispositivo", "Desconexiones 'desconocido'"]
+    table.field_names = ["Misión", "Tipo de Dispositivo", f"Desconexiones '{estado_desconocido}'"]
 
     # Ordenar las misiones alfabéticamente
     sorted_missions = sorted(missions)
@@ -189,7 +199,7 @@ def gudt(state_count: Dict):  # generate_unknown_disconnects_table
     # Agregar filas para cada Misión, Tipo de Dispositivo y Estado 'desconocido'
     for mission in sorted_missions:
         for device in device_types:
-            desconocido_count = state_count.get((mission, device, "desconocido"), 0)
+            desconocido_count = state_count.get((mission, device, estado_desconocido), 0)
 
             # Verificar si hay desconexiones antes de agregar la fila a la tabla
             if desconocido_count > 0:
@@ -222,12 +232,15 @@ def gpt(total_events: Dict, logs: List[DeviceLog]):  # generate_percentage_table
 def gidt(total_events: Dict, state_count: Dict):  # generate_inoperable_devices_table
     """ @Juliana falta aquí un mejor docstring
     """
+    data_missions: dict = leer_yaml(path_missions_conf)
+    estado_inoperable: str = data_missions.get("estado_inoperable", "Error yaml: estado_inoperable")
+
     table = PrettyTable()
     table.field_names = ["Misión", "Tipo de Dispositivo", "Dispositivos Inoperables"]
 
     # Filtrar las misiones con 0 dispositivos inoperables
     filtered_missions = {key[0] for key in total_events.keys()
-                         if state_count.get((key[0], key[1], "inoperable"), 0) > 0}
+                         if state_count.get((key[0], key[1], estado_inoperable), 0) > 0}
 
     # Ordenar las misiones alfabéticamente
     sorted_missions = sorted(filtered_missions)
@@ -235,7 +248,7 @@ def gidt(total_events: Dict, state_count: Dict):  # generate_inoperable_devices_
     for mission in sorted_missions:
         for key, count in state_count.items():
             # Filtrar solo los dispositivos inoperables
-            if key[0] == mission and key[2] == "inoperable" and count > 0:
+            if key[0] == mission and key[2] == estado_inoperable and count > 0:
                 table.add_row([key[0], key[1], count])
 
     return str(table)
