@@ -1,12 +1,27 @@
-from pathlib import Path
+"""_summary_
+"""
+# from pathlib import Path
+
+
 def test_nombre(app):
-    mission:str = "ORBONE"
-    id:int = 1
-    response = f"APL{mission}-{id:05d}.log"
-    assert app.Fun_Generar_Nombre_Archivo(mission,id) == response
-    
+    """_summary_
+
+    :param app: _description_
+    :type app: _type_
+    """
+    mission: str = "ORBONE"
+    id_: int = 1
+    response = f"APL{mission}-{id_:05d}.log"
+    assert app.fun_generar_nombre_archivo(mission, id_) == response
+
+
 def test_gestor(app):
-    #file_path = Path("Proyecto_Apolo-11","tests","Archivos_test")
-    registro:dict = {'date': '26012024215450', 'mission': 'ORBONE', 'device': 'satelite', 'state': 'excelente'}
-    id:int = 1
-    assert app.Fun_Crear_Archivo_Log("Resul_test",registro, id) == True
+    """_summary_
+
+    :param app: _description_
+    :type app: _type_
+    """
+    # file_path = Path("Proyecto_Apolo-11", "tests", "Archivos_test")
+    registro: dict = {'date': '26012024215450', 'mission': 'ORBONE', 'device': 'satelite', 'state': 'excelente'}
+    id_: int = 1
+    assert app.fun_crear_archivo_log("Resul_test", registro, id_) is True

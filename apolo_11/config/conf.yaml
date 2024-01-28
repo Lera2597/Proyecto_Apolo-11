@@ -13,8 +13,6 @@ menu_principal:
       func: e_function
     - desc: Consultar simulaciones
       func: while_menu
-    - desc: Modificar archivo de configuración
-      func: m_function
     - desc: Salir del programa
       func: s_function
 # Para las funciones que puede invocar el menú de consulta
