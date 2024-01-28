@@ -1,12 +1,16 @@
+""" @Juliana falta aquí un mejor docstring
+"""
+
 from pathlib import Path
-from pydantic import BaseModel
 from typing import List, Dict
+from pydantic import BaseModel
 from prettytable import PrettyTable
+from apolo_11.src.datos.general import leer_yaml, path_missions_conf, path_sys_conf
 
 
 class DeviceLog(BaseModel):
     """
-    El objeto DeviceLog es una instancia de la clase BaseModel de Pydantic y se utiliza 
+    El objeto DeviceLog es una instancia de la clase BaseModel de Pydantic y se utiliza
     para modelar la estructura de los datos que se extraen de los archivos .log
     """
     fecha: str
@@ -25,11 +29,13 @@ def parse_log_file(content: str) -> DeviceLog:
     :return: Objeto DeviceLog con la información del archivo.
     :rtype: DeviceLog
     """
+    data_sys: dict = leer_yaml(path_sys_conf)
+    min_lineas: int = data_sys.get("min_lineas", 5)
     # Dividir el contenido del archivo en líneas
     lines = content.split('\n')
 
     # Verificar si hay suficientes líneas para procesar
-    if len(lines) < 5:
+    if len(lines) < min_lineas:
         raise ValueError("El formato del archivo de registro es incorrecto.")
 
     try:
@@ -48,7 +54,7 @@ def parse_log_file(content: str) -> DeviceLog:
             hash=hash_value
         )
     except IndexError as e:
-        raise ValueError(f"Error al extraer datos del archivo de registro: {str(e)}")
+        raise ValueError(f"Error al extraer datos del archivo de registro: {str(e)}") from e
 
 
 def extract_logs_from_folder(folder_path: Path) -> List[DeviceLog]:
@@ -63,28 +69,28 @@ def extract_logs_from_folder(folder_path: Path) -> List[DeviceLog]:
     logs = []
     for file_path in folder_path.glob("*.log"):
         try:
-            print(f"Procesando archivo: {file_path}")
-            with open(file_path, "r", encoding="utf8") as file:
+            # print(f"Procesando archivo: {file_path}") @Juliana se comenta ya que no es necesario en la ejecución final
+            with open(file_path, "r") as file:  # @Juliana, aquí pide usar encoding, pero no supe dar con cual
                 content = file.read()
             log = parse_log_file(content)
             logs.append(log)
-        except Exception as e:
+        except (IOError, UnicodeDecodeError) as e:  # @Juliana mejoré el Exception para que no fuera tan amplio
             print(f"Error al procesar el archivo {file_path}: {str(e)}")
 
     return logs
 
 
-def table_decorator(header: str)-> callable:
+def table_decorator(header: str) -> callable:
     """
-    Un decorador para agregar un encabezado y una línea de guiones encima de una tabla 
-    generada por una función. El propósito principal de esta función es proporcionar un 
+    Un decorador para agregar un encabezado y una línea de guiones encima de una tabla
+    generada por una función. El propósito principal de esta función es proporcionar un
     encabezado para las tablas generadas.
 
     :param header: El encabezado que se agregará encima de la tabla.
     :type header: str
     :return: Un decorador que se puede aplicar a funciones que generan tablas.
     :rtype: callable
-    
+
     Uso:
     ```python
     @table_decorator("Tabla de Ejemplo")
@@ -97,11 +103,11 @@ def table_decorator(header: str)-> callable:
     """
     def decorator(func):
         """
-        Esta es la función interna del decorador que toma otra función (func) como argumento. 
+        Esta es la función interna del decorador que toma otra función (func) como argumento.
         """
         def wrapper(*args, **kwargs):
             """
-            Esta es otra función interna que toma cualquier número de argumentos posicionales (*args) 
+            Esta es otra función interna que toma cualquier número de argumentos posicionales (*args)
             y argumentos de palabra clave (**kwargs). Esta función agrega el encabezado al resultado.
             """
             table = func(*args, **kwargs)
@@ -111,7 +117,12 @@ def table_decorator(header: str)-> callable:
 
 
 @table_decorator("Tabla 1: Cantidad total de eventos por estado para cada misión y dispositivo")
-def generate_state_count_table(state_count: Dict):
+def gsct(state_count: Dict):  # generate_state_count_table
+    """ @Juliana falta aquí un mejor docstring
+    """
+    data_missions: dict = leer_yaml(path_missions_conf)
+    mision_desconocida: str = data_missions.get("mision_desconocida", "Error yaml: mision_desconocida")
+    estado_dispositivo: list = data_missions.get("estado_dispositivo", "Error yaml: estado_dispositivo")
     # Diccionario para realizar el seguimiento de las sumas por Tipo de Dispositivo, Misión y Estado
     total_count_by_device_mission_state = {}
 
@@ -133,13 +144,14 @@ def generate_state_count_table(state_count: Dict):
     # Crear la tabla con los totales y líneas divisorias
     table = PrettyTable()
     # Columnas: Misión + Tipos de Dispositivo
-    missions = sorted(set(mission for _, mission, _ in total_count_by_device_mission_state.keys() if mission != "UNKN"))
-    device_types = sorted(set(device for device, _, _ in total_count_by_device_mission_state.keys()))
+    missions = sorted(set(mission for _, mission, _ in
+                          total_count_by_device_mission_state if mission != mision_desconocida))
+    device_types = sorted(set(device for device, _, _ in total_count_by_device_mission_state))
     table.field_names = ["Dispositivo / Estado", *missions, "Total"]
-    
+
     # Filas: Tipos de Dispositivo + Estados
     for device_type in device_types:
-        for state in ["excelente", "bueno", "advertencia", "defectuoso", "inoperable", "desconocido"]:
+        for state in estado_dispositivo:
             row = [f"{device_type} - {state}"]
             for mission in missions:
                 # Obtener la cantidad total para la combinación de Tipo de Dispositivo, Misión y Estado
@@ -151,11 +163,14 @@ def generate_state_count_table(state_count: Dict):
             table.add_row(row)
         # Línea divisoria después de cada grupo de dispositivo
         table.add_row(["-" * 20] * (len(missions) + 2))
-    
+
     # Filas: Totales por Misión
     total_row = ["Total"]
     for mission in missions:
-        mission_total = sum(total_count_by_device_mission_state.get((device_type, mission, state), 0) for device_type in device_types for state in ["excelente", "bueno", "advertencia", "defectuoso", "inoperable", "desconocido"])
+        mission_total = sum(total_count_by_device_mission_state.get((device_type, mission, state), 0)
+                            for device_type in device_types
+                            for state
+                            in estado_dispositivo)
         total_row.append(mission_total)
     total_row.append(sum(total_row[1:]))
     table.add_row(total_row)
@@ -164,7 +179,11 @@ def generate_state_count_table(state_count: Dict):
 
 
 @table_decorator("Tabla 2: Dispositivos con mayor número de desconexiones 'desconocido' para cada misión")
-def generate_unknown_disconnects_table(total_events: Dict, state_count: Dict):
+def gudt(state_count: Dict):  # generate_unknown_disconnects_table
+    """ @Juliana falta aquí un mejor docstring
+    """
+    data_missions: dict = leer_yaml(path_missions_conf)
+    estado_desconocido: str = data_missions.get("estado_desconocido", "Error yaml: estado_desconocido")
     # Obtener la lista única de misiones, tipos de dispositivo y estados
     missions = sorted(set(mission for mission, _, _ in state_count.keys()))
     device_types = sorted(set(device for _, device, _ in state_count.keys()))
@@ -172,7 +191,7 @@ def generate_unknown_disconnects_table(total_events: Dict, state_count: Dict):
     table = PrettyTable()
 
     # Configurar los nombres de las columnas
-    table.field_names = ["Misión", "Tipo de Dispositivo", "Desconexiones 'desconocido'"]
+    table.field_names = ["Misión", "Tipo de Dispositivo", f"Desconexiones '{estado_desconocido}'"]
 
     # Ordenar las misiones alfabéticamente
     sorted_missions = sorted(missions)
@@ -180,7 +199,7 @@ def generate_unknown_disconnects_table(total_events: Dict, state_count: Dict):
     # Agregar filas para cada Misión, Tipo de Dispositivo y Estado 'desconocido'
     for mission in sorted_missions:
         for device in device_types:
-            desconocido_count = state_count.get((mission, device, "desconocido"), 0)
+            desconocido_count = state_count.get((mission, device, estado_desconocido), 0)
 
             # Verificar si hay desconexiones antes de agregar la fila a la tabla
             if desconocido_count > 0:
@@ -190,76 +209,83 @@ def generate_unknown_disconnects_table(total_events: Dict, state_count: Dict):
 
 
 @table_decorator("Tabla 3: Porcentaje de datos generados para cada dispositivo y misión")
-def generate_percentage_table(total_events: Dict, logs: List[DeviceLog]):
+def gpt(total_events: Dict, logs: List[DeviceLog]):  # generate_percentage_table
+    """ @Juliana falta aquí un mejor docstring
+    """
     table = PrettyTable()
     table.field_names = ["Misión", "Tipo de Dispositivo", "Porcentaje de Datos"]
-    
+
     # Obtener misiones únicas y ordenarlas alfabéticamente
     missions = sorted(set(key[0] for key in total_events.keys()))
-    
+
     for mission in missions:
         for key, count in total_events.items():
             # Filtrar por misión y calcular el porcentaje
             if key[0] == mission:
                 percentage = (count / len(logs)) * 100
                 table.add_row([key[0], key[1], f"{percentage:.2f}%"])
-    
+
     return str(table)
 
 
 @table_decorator("Tabla 4: Consolidado de todas las misiones para determinar cuántos dispositivos son inoperables")
-def generate_inoperable_devices_table(total_events: Dict, state_count: Dict):
+def gidt(total_events: Dict, state_count: Dict):  # generate_inoperable_devices_table
+    """ @Juliana falta aquí un mejor docstring
+    """
+    data_missions: dict = leer_yaml(path_missions_conf)
+    estado_inoperable: str = data_missions.get("estado_inoperable", "Error yaml: estado_inoperable")
+
     table = PrettyTable()
     table.field_names = ["Misión", "Tipo de Dispositivo", "Dispositivos Inoperables"]
-    
+
     # Filtrar las misiones con 0 dispositivos inoperables
-    filtered_missions = {key[0] for key in total_events.keys() if state_count.get((key[0], key[1], "inoperable"), 0) > 0}
-    
+    filtered_missions = {key[0] for key in total_events.keys()
+                         if state_count.get((key[0], key[1], estado_inoperable), 0) > 0}
+
     # Ordenar las misiones alfabéticamente
     sorted_missions = sorted(filtered_missions)
 
     for mission in sorted_missions:
         for key, count in state_count.items():
             # Filtrar solo los dispositivos inoperables
-            if key[0] == mission and key[2] == "inoperable" and count > 0:
+            if key[0] == mission and key[2] == estado_inoperable and count > 0:
                 table.add_row([key[0], key[1], count])
-    
+
     return str(table)
 
 
-def save_report_to_file(report_content: str, report_name: str, reports: Path):
+def save_report_to_file(report_content: str, report_name: str, reports: Path) -> None:
+    """ @Juliana falta aquí un mejor docstring
+    """
     try:
         report_path = reports / report_name
-        with open(report_path, "w") as report_file:
+        with open(report_path, "w") as report_file:  # @Juliana, aquí pide usar encoding, pero no supe dar con cual
             report_file.write(report_content)
         print(f"El informe se ha guardado en: {report_path}")
-    except Exception as e:
+    except IOError as e:  # @Juliana mejoré el Exception para que no fuera tan amplio, no sé si sea el mejor
         print(f"Error al guardar el informe: {str(e)}")
         raise  # Agregamos esta línea para que el error se propague y se muestre en la consola
 
 
 def process_logs(logs: List[DeviceLog], reports: Path) -> bool:
-    state_count = {}
-    total_events = {}
+    """ @Juliana falta aquí un mejor docstring
+    """
+    sta_cou = {}  # state_count
+    tot_eve = {}  # total_events
 
     try:
         if not logs:
             raise ValueError("No se encontraron archivos de registro para procesar.")
 
         for log in logs:
-            print(f"Procesando log: {log}")
+            # print(f"Procesando log: {log}") @Juliana se comenta ya que no se requiere en la ejecución final
             state_key = (log.mision, log.tipo_dispositivo, log.estado_dispositivo)
-            state_count[state_key] = state_count.get(state_key, 0) + 1
+            sta_cou[state_key] = sta_cou.get(state_key, 0) + 1
 
             total_events_key = (log.mision, log.tipo_dispositivo)
-            total_events[total_events_key] = total_events.get(total_events_key, 0) + 1
+            tot_eve[total_events_key] = tot_eve.get(total_events_key, 0) + 1
 
-        report_content = (
-            generate_state_count_table(state_count) +
-            generate_unknown_disconnects_table(total_events, state_count) +
-            generate_percentage_table(total_events, logs) +
-            generate_inoperable_devices_table(total_events, state_count)
-        )
+        report_content: str = (gsct(sta_cou) + gudt(sta_cou) + gpt(tot_eve, logs) + gidt(tot_eve, sta_cou))
 
         print("Contenido del informe:")
         print(report_content)
@@ -269,6 +295,6 @@ def process_logs(logs: List[DeviceLog], reports: Path) -> bool:
 
         return True  # Indicador de éxito
 
-    except Exception as e:
+    except ValueError as e:  # @Juliana mejoré el Exception para que no fuera tan amplio, no sé si sea el mejor
         print(f"Error al procesar los logs: {str(e)}")
         return False  # Indicador de fallo
