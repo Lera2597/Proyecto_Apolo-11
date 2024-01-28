@@ -1,8 +1,11 @@
+# Archivo de parámetros de configuración general
+# Para el menú de la aplicación
 pantalla:
   size: 50
   print: "*"
   option: "Seleccione la primera letra de la opción: "
   mistake: "Opción no válida. Inténtalo nuevamente."
+# Para las funciones que puede invocar el menú principal
 menu_principal:
   cabecera: Menú
   opciones:
@@ -14,6 +17,7 @@ menu_principal:
       func: m_function
     - desc: Salir del programa
       func: s_function
+# Para las funciones que puede invocar el menú de consulta
 menu_consulta:
   cabecera: Consultas
   opciones:
@@ -21,7 +25,9 @@ menu_consulta:
       func: u_function
     - desc: Ejecucion específica
       func: e_c_function
-    - desc: Totales de la simulación
-      func: t_function
     - desc: Regresar al menú anterior
       func: r_function
+# Para la escritura de archivos de la aplicación y el backup correspondiente
+directorio_salida: devices
+directorio_backup: backup
+directorio_report: reports
