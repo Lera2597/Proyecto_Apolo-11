@@ -57,14 +57,7 @@ def e_function(path_salida: str, path_backup: str, path_report: str) -> None:
     con(path_salida, path_report)
     input("Finalizó el reporte, presione cualquier tecla para continuar...")
 
-    rcs(path_salida, path_backup)
-
-
-def m_function() -> None:
-    """ Controla la invocación a la modificación del archivo de configuración
-    """
-    print("Ir a modificar")
-    sleep(1)
+    rcs(path_salida, path_backup, path_report)
 
 
 def s_function(texto: str) -> bool:
@@ -78,6 +71,7 @@ def s_function(texto: str) -> bool:
     select: str = input("¿Desea salir del programa? (S/N) ").upper()
 
     if select == "S":
+        clean_screen()
         return True
     if select == "N":
         return False
@@ -186,21 +180,29 @@ def e_c_function(path_report: str) -> None:
     ext_archivo = "*.log"
     archivos = list(directorio.glob(f'{ext_archivo}'))
     if archivos:
-        print("Reportes encontrados:")
+        print("Reportes encontrados:\n")
+        index: int = 1
         for archivo in archivos:
-            print(f"> {archivo.name}")
-        nombre_buscar: str = input("Indique el nombre del archivo a buscar: ")
-        archivo_buscar: Path = directorio / nombre_buscar
+            print(f"{index}. {archivo.name}")
+            index += 1
+        buscar: str = input("\nIndique el índice del archivo a buscar: ")
         clean_screen()
-        if archivo_buscar in archivos:
-            with archivo_buscar.open("r") as archivo:
-                contenido: str = archivo.read()
-            print(f"Contenido del informe: {archivo_buscar.name}\n")
-            print(contenido)
-            input("Presione cualquier tecla para continuar...")
+        if buscar.isdigit():
+            index_buscar: int = int(buscar)
+            if index_buscar <= 0 or index_buscar > len(archivos):
+                print(f'El indice {index_buscar} no se encuentra en las opciones.\n')
+            else:
+                nombre_buscar = archivos[int(index_buscar) - 1].name
+                archivo_buscar: Path = directorio / nombre_buscar
+                if archivo_buscar in archivos:
+                    with archivo_buscar.open("r") as archivo:
+                        contenido: str = archivo.read()
+                    print(f"Contenido del informe: {archivo_buscar.name}\n")
+                    print(contenido)
         else:
-            print(f'El archivo "{archivo_buscar.name}" no se encuentra en el directorio.')
-            input("Presione cualquier tecla para continuar...")
+            print(f'El indice "{buscar}" no es un dígito.\n')
+        input("Presione cualquier tecla para continuar...")
+
     else:
         print("No hay archivos en el directorio.")
         sleep(2)
