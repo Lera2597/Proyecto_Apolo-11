@@ -1,6 +1,6 @@
 mision:
   - ORBONE
-  - CLMN
+  - CLNM
   - TMRS
   - GALXONE
   - UNKN
@@ -17,3 +17,7 @@ estado_dispositivo:
   - defectuoso
   - inoperable
   - desconocido
+mision_desconocida: UNKN
+estado_desconocido: desconocido
+unknown_miss_hash: unknown
+estado_inoperable: inoperable

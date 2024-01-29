@@ -1,3 +1,7 @@
-periodo_simulacion: 20 # Inidad segundos. Por defecto 20 segundos 
-tiempo_simulacion: 60 # Unidad segundos. Por defecto 60 segundos
-num_registros: 50 # Cantidad de registros a generar por periodo de simulación. Por defecto 100
+periodo_simulacion: 10 # Inidad segundos. Por defecto 20 segundos 
+tiempo_simulacion: 20 # Unidad segundos. Por defecto 60 segundos
+min_log_file: 1
+max_log_file: 1000
+min_lineas: 5
+min_num_reg: 1 # Limite inferior de degistros a generar
+max_num_reg: 100 # Limite superio de degistros a generar 
