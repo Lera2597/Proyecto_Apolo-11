@@ -51,7 +51,8 @@ def test_generator_simulation_cicle(app) -> None:
         "mision": ["ORBONE", "CLNM", "TMRS", "GALXONE", "UNKN"],
         "dispositivo": ["satelite", "nave espacial", "vehiculo espacial", "traje espacial", "robot espacial"],
         "estado_dispositivo": ["excelente", "bueno", "advertencia", "defectuoso", "inoperable", "desconocido"]}
-    data_sys: dict = {"periodo_simulacion": 2, "tiempo_simulacion": 10, "num_registros": 10}
-    response = app.fun_simulation_cicle(data_missions, data_sys)
+    data_sys: dict = {"periodo_simulacion": 2, "tiempo_simulacion": 10}
+    num_registers: int = 10
+    response = app.fun_simulation_cicle(data_missions, data_sys, num_registers)
     assert isinstance(response, list)
-    assert len(response) == data_sys["num_registros"]
+    assert len(response) == num_registers

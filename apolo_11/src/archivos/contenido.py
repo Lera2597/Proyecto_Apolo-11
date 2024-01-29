@@ -27,7 +27,7 @@ def generar_contenido_log(device: dict) -> str:
             # En caso de misión desconocida, utilizar solo fecha el resto es UNKN
             contenido: str = (
                 f"Fecha: {fecha_actual}\n"
-                f"Misión: {unknown_miss_hash}\n"
+                f"Misión: {mision_desconocida}\n"
                 f"Tipo de Dispositivo: {estado_desconocido}\n"
                 f"Estado del Dispositivo: {estado_desconocido}\n"
                 f"Hash: {unknown_miss_hash}"

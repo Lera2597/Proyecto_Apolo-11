@@ -270,7 +270,7 @@ def save_report_to_file(report_content: str, report_name: str, reports: Path) ->
 def process_logs(logs: List[DeviceLog], reports: Path) -> bool:
     """ @Juliana falta aquí un mejor docstring
     """
-    sta_cou = {}  # state_count
+    s_c = {}  # state_count
     tot_eve = {}  # total_events
 
     try:
@@ -280,12 +280,12 @@ def process_logs(logs: List[DeviceLog], reports: Path) -> bool:
         for log in logs:
             # print(f"Procesando log: {log}") @Juliana se comenta ya que no se requiere en la ejecución final
             state_key = (log.mision, log.tipo_dispositivo, log.estado_dispositivo)
-            sta_cou[state_key] = sta_cou.get(state_key, 0) + 1
+            s_c[state_key] = s_c.get(state_key, 0) + 1
 
             total_events_key = (log.mision, log.tipo_dispositivo)
             tot_eve[total_events_key] = tot_eve.get(total_events_key, 0) + 1
 
-        report_content: str = (gsct(sta_cou) + gudt(sta_cou) + gpt(tot_eve, logs) + gidt(tot_eve, sta_cou))
+        report_content: str = (gsct(s_c) + "\n" + gudt(s_c) + "\n" + gpt(tot_eve, logs) + "\n" + gidt(tot_eve, s_c))
 
         print("Contenido del informe:")
         print(report_content)
