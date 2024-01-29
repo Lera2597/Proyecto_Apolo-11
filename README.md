@@ -58,7 +58,7 @@ Esto iniciará el programa Apolo-11 y te mostrará el menú inicial con las opci
 El programa Apolo-11 ofrece varias funcionalidades que se pueden acceder desde un menú principal. A continuación se muestran algunos ejemplos de cómo utilizar estas funcionalidades:
 <br>
 <br>
-<img src="https://github.com/Lera2597/Proyecto_Apolo-11/assets/77032671/7fc56942-d704-4bb9-adec-cdc4e17c6a72" width="450">
+<img src="https://github.com/Lera2597/Proyecto_Apolo-11/assets/77032671/487ed7cd-2b3c-4891-beeb-194d5573e6b9" width="450">
 <br>
 <br>
 
@@ -73,10 +73,6 @@ Para ejecutar la simulación y generar archivos .log con información aleatoria 
 **Consultar Simulaciones**
 
 Puedes consultar la información generada en las simulaciones anteriores utilizando la opción "Consultar simulaciones" en el menú principal presionando la letra `C` desde tu teclado. Esta función te permitirá ver los reportes de las misiones espaciales.
-
-**Modificar Archivo de Configuración**
-
-Si deseas ajustar la configuración del programa, puedes seleccionar la opción "Modificar archivo de configuración" desde el menú principal presionando la letra `M` desde tu teclado. Esto te permitirá cambiar los parámetros de la simulación, como el número de registros a generar, el tiempo de la simulación, etc.
 
 **Salir del Programa**
 

@@ -1,5 +1,6 @@
-"""
-Clase que controla las misiones dentro de la simulación
+""" Este módulo contiene la clase Mission la cual
+    el comportamiento de un dispositivo que genera registros
+    con determinada información.
 """
 
 from .device import Device

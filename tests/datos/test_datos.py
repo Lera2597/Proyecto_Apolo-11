@@ -1,5 +1,5 @@
-"""
-Ejecución de pruebas unitarias para el módulo de datos
+"""Contiene las funciones de prueba para el
+    paquete de datos.
 """
 from pathlib import Path
 

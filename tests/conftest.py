@@ -1,7 +1,5 @@
 """para definir configuración transversal que pueden ser usados
 en las diferentes pruebas unitarias.
-
-todas las pruebas unitarias normalmente se hacen con funciones y asserts
 """
 import pytest
 from apolo_11.src.datos.device import Device

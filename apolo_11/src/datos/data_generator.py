@@ -1,5 +1,7 @@
-"""
-Funcionalidad encargada de la generación de ratos de manera cíclica
+""" Este módulo contiene el proceso de generar o simular durante
+un tiempo establecido los registros para los diferentes 
+dispositivos y misiones.
+
 """
 
 from time import time

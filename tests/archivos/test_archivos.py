@@ -1,10 +1,10 @@
-"""
-Ejecución de pruebas unitarias para el módulo de archivos
+"""Contiene las funciones de prueba para el
+    paquete de archivos.
 """
 
 
-def test_nombre(app) -> None:
-    """ Funcionalidad para probar el archivo nombre
+def test_nombre(app):
+    """test para el módulo nombre
 
     :param app: Variable de llamado para la invocación de la función
     :type app: App

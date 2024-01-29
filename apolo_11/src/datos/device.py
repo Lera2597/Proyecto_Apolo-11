@@ -1,5 +1,6 @@
-"""
-Clase que controla los dispositivos dentro de la simulación
+""" Este módulo contiene la clase Device la cual
+    el comportamiento de un dispositivo que genera registros
+    con determinada información.
 """
 
 from datetime import datetime

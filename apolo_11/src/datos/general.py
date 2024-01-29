@@ -1,5 +1,5 @@
-"""
-Funcionalidad que controla las distintas funciones que son utilizadas por el módulo de datos
+""" Este módulo contiene funciones generales que pueden
+    llamar y utulizar desde los otros módulos
 """
 from random import randint
 from os import path
@@ -37,6 +37,18 @@ def distribute_register(cantidad: int, num_particiones: int) -> list:
 
     return partes
 
+def numero_registers(l_inferior: int, l_superior: int) -> int:
+    """
+    permiete generar un numero entero aleatorio dentro de 
+    los limites ingresados
+    :param l_inferior: valor del limite inferior
+    :type l_inferior: int
+    :param l_superior: valor del limite superior
+    :type l_superior: int
+    :return: Valor aleatorio 
+    :rtype: int
+    """
+    return randint(l_inferior, l_superior)
 
 def leer_yaml(route: str) -> dict:
     """permite leer un archivo yaml y devolver el contenido como dict
