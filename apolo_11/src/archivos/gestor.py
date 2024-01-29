@@ -1,4 +1,6 @@
-""" @Juliana falta aquí un mejor docstring
+""" 
+Contiene las funcionalidades para guardar los archivos .log generados en el directorio 'devices' 
+y posteriormente hacer una copia de seguridad en el directorio 'backup'
 """
 
 from pathlib import Path

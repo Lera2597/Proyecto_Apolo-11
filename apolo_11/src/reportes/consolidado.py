@@ -1,4 +1,5 @@
-""" @Juliana falta aquí un mejor docstring
+""" 
+Genera un informe consolidado a partir de los registros de dispositivos y lo guarda en el directorio de informes.
 """
 
 from pathlib import Path
@@ -6,17 +7,21 @@ from apolo_11.src.reportes.reportes import extract_logs_from_folder, process_log
 
 
 def consolidado(devices: str, reports: str) -> None:
-    """ @Juliana falta aquí un mejor docstring
     """
-    # parser = argparse.ArgumentParser(description="Procesa archivos de registro y genera informes en archivos .log.")
-    # parser.add_argument("folder_path", type=Path, default="devices",
-    #                     help="Ruta a la carpeta que contiene los archivos de registro.")
-    # parser.add_argument("--reports_folder", type=Path, default="reports",
-    #                     help="Ruta a la carpeta para almacenar los informes.")
-    # args = parser.parse_args()
+    Genera un informe consolidado a partir de los registros de dispositivos y lo guarda en el directorio de informes.
 
-    # args.reports_folder.mkdir(exist_ok=True)  # Crear la carpeta de informes si no existe
-    directorio_devices = Path(devices)  # @Juliana hice este cambio, revisar
+    Este informe consolidado contiene estadísticas sobre los eventos registrados en los dispositivos, 
+    incluyendo la cantidad total de eventos por estado para cada misión y dispositivo, dispositivos con 
+    mayor número de desconexiones 'desconocido' para cada misión, porcentaje de datos generados para cada 
+    dispositivo y misión, y el consolidado de todas las misiones para determinar cuántos dispositivos son inoperables.
+
+    :param devices: Ruta del directorio que contiene los archivos de registro de dispositivos.
+    :type devices: str
+    :param reports: Ruta del directorio donde se guardarán los informes generados.
+    :type reports: str
+    :return: None
+    """
+    directorio_devices = Path(devices)  
     directorio_reports = Path(reports)
     directorio_reports.mkdir(exist_ok=True)
     logs_list = extract_logs_from_folder(directorio_devices)

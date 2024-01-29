@@ -1,4 +1,5 @@
-""" @Juliana falta aquí un mejor docstring
+""" 
+Contiene las funcionalidades para generar el contenido de los archivos .log
 """
 
 from hashlib import sha256
@@ -44,7 +45,7 @@ def generar_contenido_log(device: dict) -> str:
 
         return contenido
 
-    except KeyError as e:  # @Juliana mejoré el Exception para que no fuera tan amplio
+    except KeyError as e: 
         # Manejo de errores
         mensaje_error: str = f"Error al generar el contenido del archivo .log: {str(e)}"
         return mensaje_error

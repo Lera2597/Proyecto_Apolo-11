@@ -1,4 +1,5 @@
-""" @Juliana falta aquí un mejor docstring
+""" 
+Funcionalidad para generar el nombre de los archivos .log el formato estándar. 
 """
 
 from apolo_11.src.datos.general import leer_yaml, path_missions_conf, path_sys_conf
