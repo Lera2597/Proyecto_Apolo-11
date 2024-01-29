@@ -12,10 +12,10 @@ from apolo_11.src.archivos.gestor import crear_archivo_log
 
 @pytest.fixture(scope="session")
 def app():
-    """_summary_
+    """Centralización de las funciones a probar dentro de las pruebas unitarias
 
-    :return: _description_
-    :rtype: _type_
+    :return: Variable con la configuración de las funciones configuradas
+    :rtype: App
     """
     class App:
         """_summary_
@@ -31,5 +31,5 @@ def app():
     app_.fun_simulation_cicle = simulation_cycle
     app_.fun_generar_nombre_archivo = generar_nombre_archivo
     app_.fun_crear_archivo_log = crear_archivo_log
-    # agregar funciones a probar
+    # agregar funciones pendientes a probar
     return app_

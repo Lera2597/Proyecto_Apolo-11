@@ -5,11 +5,10 @@ from pathlib import Path
 
 
 def test_device(app) -> None:
-    """test para el módulo device
+    """ Funcionalidad para probar la clase device
 
-    :param app: Clase que contien las funciones
-    de los diferentes modulos a probar.
-    :type app: _type_
+    :param app: Variable de llamado para la invocación de la función
+    :type app: App
     """
     response = app.fun_get_registers_device(["Bueno", "Regular", "Malo"])
 
@@ -20,11 +19,10 @@ def test_device(app) -> None:
 
 
 def test_mission(app) -> None:
-    """test para el módulo misions
+    """ Funcionalidad para probar la clase mission
 
-    :param app: Clase que contien las funciones
-    de los diferentes modulos a probar.
-    :type app: _type_
+    :param app: Variable de llamado para la invocación de la función
+    :type app: App
     """
     response = app.fun_get_registers_mission(["device_1", "device_2", "device_3"], ["Bueno", "Regular", "Malo"])
     assert isinstance(response, list)
@@ -34,11 +32,10 @@ def test_mission(app) -> None:
 
 
 def test_general_leer_yaml(app) -> None:
-    """test para el módulo general.leer_yaml
+    """ Funcionalidad para probar la funcionalidad leer yaml
 
-    :param app: Clase que contien las funciones
-    de los diferentes modulos a probar.
-    :type app: _type_
+    :param app: Variable de llamado para la invocación de la función
+    :type app: App
     """
     path_file: str = Path("apolo_11", "config", "missions.yaml")
     response = app.fun_leer_yaml(path_file)
@@ -46,11 +43,10 @@ def test_general_leer_yaml(app) -> None:
 
 
 def test_generator_simulation_cicle(app) -> None:
-    """test para el módulo generator.simulation_cicle
+    """ Funcionalidad para probar la funcionalidad generator_simulation_cicle
 
-    :param app: Clase que contien las funciones
-    de los diferentes modulos a probar.
-    :type app: _type_
+    :param app: Variable de llamado para la invocación de la función
+    :type app: App
     """
     data_missions: dict = {
         "mision": ["ORBONE", "CLNM", "TMRS", "GALXONE", "UNKN"],

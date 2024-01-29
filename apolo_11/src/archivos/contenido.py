@@ -1,4 +1,4 @@
-""" 
+"""
 Contiene las funcionalidades para generar el contenido de los archivos .log
 """
 
@@ -45,7 +45,7 @@ def generar_contenido_log(device: dict) -> str:
 
         return contenido
 
-    except KeyError as e: 
+    except KeyError as e:
         # Manejo de errores
         mensaje_error: str = f"Error al generar el contenido del archivo .log: {str(e)}"
         return mensaje_error

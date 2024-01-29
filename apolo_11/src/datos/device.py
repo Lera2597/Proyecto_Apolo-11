@@ -35,7 +35,7 @@ class Device:
         :param name_states_:  Lista con todos los posibles estados que puede
         tener el dispositivo.
         :type name_states_: list
-        :return: list: Lista con todos los regsitros generados por el dispositivo
+        :return: list: Lista con todos los registros generados por el dispositivo
         perteneciente a una determinada mision
         :rtype: list
         """

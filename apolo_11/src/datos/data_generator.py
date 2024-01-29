@@ -20,8 +20,10 @@ def data_generator_init(path_salida: str) -> None:
     """
     Simula o genera los registros de todos los dispositivos y misiones con un periodo de ejecución
     y durante un tiempo de simulacion establecidos en el archivo de configuración.
-    """
 
+    :param path_salida: Directorio donde se deben escribir los archivos de salida
+    :type path_salida: str
+    """
     data_missions: dict = leer_yaml(path_missions_conf)
     data_sys: dict = leer_yaml(path_sys_conf)
     simulation_time: int = data_sys.get("tiempo_simulacion", 20)
@@ -64,6 +66,8 @@ def simulation_cycle(data_missions_: dict, data_sys_: dict, num_registers: int) 
     :param data_sys_: Contiene la informacion la somimualcion como
     periodo y tiempo de simulacion
     :type data_sys_: dict
+    :param num_registers: Contiene el número de registros totales a generar en ese ciclo de simulación
+    :type num_registers: int
     :return: Lista con todos los regsitros
     :rtype: list
     """
