@@ -1,4 +1,7 @@
-""" @Luis falta aquí un mejor docstring
+""" Este módulo contiene el proceso de generar o simular durante
+un tiempo establecido los registros para los diferentes 
+dispositivos y misiones.
+
 """
 
 from time import time

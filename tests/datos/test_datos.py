@@ -1,12 +1,14 @@
-"""_summary_
+"""Contiene las funciones de prueba para el
+    paquete de datos.
 """
 from pathlib import Path
 
 
 def test_device(app) -> None:
-    """_summary_
+    """test para el módulo device
 
-    :param app: _description_
+    :param app: Clase que contien las funciones
+    de los diferentes modulos a probar.
     :type app: _type_
     """
     response = app.fun_get_registers_device(["Bueno", "Regular", "Malo"])
@@ -18,9 +20,10 @@ def test_device(app) -> None:
 
 
 def test_mission(app) -> None:
-    """_summary_
+    """test para el módulo misions
 
-    :param app: _description_
+    :param app: Clase que contien las funciones
+    de los diferentes modulos a probar.
     :type app: _type_
     """
     response = app.fun_get_registers_mission(["device_1", "device_2", "device_3"], ["Bueno", "Regular", "Malo"])
@@ -31,9 +34,10 @@ def test_mission(app) -> None:
 
 
 def test_general_leer_yaml(app) -> None:
-    """_summary_
+    """test para el módulo general.leer_yaml
 
-    :param app: _description_
+    :param app: Clase que contien las funciones
+    de los diferentes modulos a probar.
     :type app: _type_
     """
     path_file: str = Path("apolo_11", "config", "missions.yaml")
@@ -42,9 +46,10 @@ def test_general_leer_yaml(app) -> None:
 
 
 def test_generator_simulation_cicle(app) -> None:
-    """_summary_
+    """test para el módulo generator.simulation_cicle
 
-    :param app: _description_
+    :param app: Clase que contien las funciones
+    de los diferentes modulos a probar.
     :type app: _type_
     """
     data_missions: dict = {

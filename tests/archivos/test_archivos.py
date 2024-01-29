@@ -1,12 +1,14 @@
-"""_summary_
+"""Contiene las funciones de prueba para el
+    paquete de archivos.
 """
 # from pathlib import Path
 
 
 def test_nombre(app):
-    """_summary_
+    """test para el módulo nombre
 
-    :param app: _description_
+    :param app: Clase que contien las funciones
+    de los diferentes modulos a probar.
     :type app: _type_
     """
     mission: str = "ORBONE"
@@ -16,9 +18,10 @@ def test_nombre(app):
 
 
 def test_gestor(app):
-    """_summary_
+    """test para el módulo gestor
 
-    :param app: _description_
+    :param app: Clase que contien las funciones
+    de los diferentes modulos a probar.
     :type app: _type_
     """
     # file_path = Path("Proyecto_Apolo-11", "tests", "Archivos_test")
