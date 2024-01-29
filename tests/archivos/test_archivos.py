@@ -24,4 +24,4 @@ def test_gestor(app):
     # file_path = Path("Proyecto_Apolo-11", "tests", "Archivos_test")
     registro: dict = {'date': '26012024215450', 'mission': 'ORBONE', 'device': 'satelite', 'state': 'excelente'}
     id_: int = 1
-    assert app.fun_crear_archivo_log("Resul_test", registro, id_) is True
+    assert app.fun_crear_archivo_log("Result_test", registro, id_) is True
