@@ -67,3 +67,17 @@ def leer_yaml(route: str) -> dict:
         print(ex)
         content = None
     return content
+
+
+def numero_registers(l_inferior: int, l_superior: int) -> int:
+    """
+    permiete generar un numero entero aleatorio dentro de
+    los limites ingresados
+    :param l_inferior: valor del limite inferior
+    :type l_inferior: int
+    :param l_superior: valor del limite superior
+    :type l_superior: int
+    :return: Valor aleatorio
+    :rtype: int
+    """
+    return randint(l_inferior, l_superior)

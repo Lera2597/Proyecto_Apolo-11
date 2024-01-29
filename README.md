@@ -58,7 +58,7 @@ Esto iniciará el programa Apolo-11 y te mostrará el menú inicial con las opci
 El programa Apolo-11 ofrece varias funcionalidades que se pueden acceder desde un menú principal. A continuación se muestran algunos ejemplos de cómo utilizar estas funcionalidades:
 <br>
 <br>
-<img src="https://github.com/Lera2597/Proyecto_Apolo-11/assets/77032671/7fc56942-d704-4bb9-adec-cdc4e17c6a72" width="450">
+<img src="https://github.com/Lera2597/Proyecto_Apolo-11/assets/77032671/487ed7cd-2b3c-4891-beeb-194d5573e6b9" width="450">
 <br>
 <br>
 

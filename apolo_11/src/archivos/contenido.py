@@ -1,4 +1,5 @@
-""" @Juliana falta aquí un mejor docstring
+""" 
+Contiene las funcionalidades para generar el contenido de los archivos .log
 """
 
 from hashlib import sha256
@@ -27,7 +28,7 @@ def generar_contenido_log(device: dict) -> str:
             # En caso de misión desconocida, utilizar solo fecha el resto es UNKN
             contenido: str = (
                 f"Fecha: {fecha_actual}\n"
-                f"Misión: {unknown_miss_hash}\n"
+                f"Misión: {mision_desconocida}\n"
                 f"Tipo de Dispositivo: {estado_desconocido}\n"
                 f"Estado del Dispositivo: {estado_desconocido}\n"
                 f"Hash: {unknown_miss_hash}"
@@ -44,7 +45,7 @@ def generar_contenido_log(device: dict) -> str:
 
         return contenido
 
-    except KeyError as e:  # @Juliana mejoré el Exception para que no fuera tan amplio
+    except KeyError as e: 
         # Manejo de errores
         mensaje_error: str = f"Error al generar el contenido del archivo .log: {str(e)}"
         return mensaje_error

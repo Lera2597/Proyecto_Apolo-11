@@ -21,7 +21,7 @@ def data_generator_init(path_salida: str) -> None:
     Simula o genera los registros de todos los dispositivos y misiones con un periodo de ejecución
     y durante un tiempo de simulacion establecidos en el archivo de configuración.
     """
-    
+
     data_missions: dict = leer_yaml(path_missions_conf)
     data_sys: dict = leer_yaml(path_sys_conf)
     simulation_time: int = data_sys.get("tiempo_simulacion", 20)
@@ -40,8 +40,8 @@ def data_generator_init(path_salida: str) -> None:
         else:
             cont += 1
             print(f"Ciclo # {simulation_cycle_cont}")
-            num_registers: int = numero_registers(data_sys.get("min_num_reg", 1),data_sys.get("max_num_reg", 100) )
-            registers.extend(simulation_cycle(data_missions, data_sys,num_registers))
+            num_registers: int = numero_registers(data_sys.get("min_num_reg", 1), data_sys.get("max_num_reg", 100))
+            registers.extend(simulation_cycle(data_missions, data_sys, num_registers))
             time_elapsed_simulation: float = time() - start_time_simulation
             time_elapsed_simulation = min(time_elapsed_simulation, simulation_time)
             aux2 = int(100 * time_elapsed_simulation / simulation_time)
@@ -70,7 +70,6 @@ def simulation_cycle(data_missions_: dict, data_sys_: dict, num_registers: int) 
     finish_period = False
     start_time_period: float = time()
     simulation_period: int = data_sys_.get("periodo_simulacion", 20)
-    print(num_registers)
     name_missions: list = data_missions_.get("mision", "Error yaml: mision")
     name_devices: list = data_missions_.get("dispositivo", "Error yaml: dispositivo")
     name_states: list = data_missions_.get("estado_dispositivo", "Error yaml: Estado Dispositivo")
