@@ -1,5 +1,5 @@
-""" 
-Contiene las funcionalidades para la generación de reportes para cada ejecución. 
+"""
+Contiene las funcionalidades para la generación de reportes para cada ejecución.
 """
 
 from pathlib import Path
@@ -70,11 +70,11 @@ def extract_logs_from_folder(folder_path: Path) -> List[DeviceLog]:
     logs = []
     for file_path in folder_path.glob("*.log"):
         try:
-            with open(file_path, "r") as file:
+            with open(file_path, "r") as file:  # Pylint W1514, pendiente de resolver
                 content = file.read()
             log = parse_log_file(content)
             logs.append(log)
-        except (IOError, UnicodeDecodeError) as e: 
+        except (IOError, UnicodeDecodeError) as e:
             print(f"Error al procesar el archivo {file_path}: {str(e)}")
 
     return logs
@@ -118,10 +118,10 @@ def table_decorator(header: str) -> callable:
 
 @table_decorator("Tabla 1: Cantidad total de eventos por estado para cada misión y dispositivo")
 def gsct(state_count: Dict):  # generate_state_count_table
-    """ 
+    """
     Genera una tabla con la cantidad total de eventos por estado para cada misión y dispositivo.
 
-    :param state_count: Diccionario que contiene la cantidad de eventos por estado para cada 
+    :param state_count: Diccionario que contiene la cantidad de eventos por estado para cada
                         combinación de misión y dispositivo.
     :type state_count: dict
     :return: Representación en forma de cadena de la tabla generada.
@@ -151,8 +151,8 @@ def gsct(state_count: Dict):  # generate_state_count_table
     # Crear la tabla con los totales y líneas divisorias
     table = PrettyTable()
     # Columnas: Misión + Tipos de Dispositivo
-    missions = sorted(set(mission for _, mission, _ in
-                        total_count_by_device_mission_state if mission != mision_desconocida))
+    missions = sorted(set(mission for _, mission, _ in total_count_by_device_mission_state if
+                          mission != mision_desconocida))
     device_types = sorted(set(device for device, _, _ in total_count_by_device_mission_state))
     table.field_names = ["Dispositivo / Estado", *missions, "Total"]
 
@@ -187,10 +187,10 @@ def gsct(state_count: Dict):  # generate_state_count_table
 
 @table_decorator("Tabla 2: Dispositivos con mayor número de desconexiones 'desconocido' para cada misión")
 def gudt(state_count: Dict):  # generate_unknown_disconnects_table
-    """ 
+    """
     Genera una tabla con los dispositivos que tienen el mayor número de desconexiones 'desconocido' para cada misión.
 
-    :param state_count: Diccionario que contiene la cantidad de eventos por estado para cada combinación de misión, 
+    :param state_count: Diccionario que contiene la cantidad de eventos por estado para cada combinación de misión,
                         dispositivo y estado.
     :type state_count: dict
     :return: Representación en forma de cadena de la tabla generada.
@@ -224,10 +224,10 @@ def gudt(state_count: Dict):  # generate_unknown_disconnects_table
 
 @table_decorator("Tabla 3: Porcentaje de datos generados para cada dispositivo y misión")
 def gpt(total_events: Dict, logs: List[DeviceLog]):  # generate_percentage_table
-    """ 
+    """
     Genera una tabla que muestra el porcentaje de datos generados para cada dispositivo y misión.
 
-    :param total_events: Diccionario que contiene el recuento total de eventos para cada combinación 
+    :param total_events: Diccionario que contiene el recuento total de eventos para cada combinación
                         de misión y dispositivo.
     :type total_events: dict
     :param logs: Lista de registros de dispositivos.
@@ -253,13 +253,14 @@ def gpt(total_events: Dict, logs: List[DeviceLog]):  # generate_percentage_table
 
 @table_decorator("Tabla 4: Consolidado de todas las misiones para determinar cuántos dispositivos son inoperables")
 def gidt(total_events: Dict, state_count: Dict):  # generate_inoperable_devices_table
-    """ 
-    Genera una tabla que muestra el consolidado de todas las misiones para determinar cuántos dispositivos son inoperables.
+    """
+    Genera una tabla que muestra el consolidado de todas las misiones para determinar cuántos dispositivos
+    son inoperables.
 
-    :param total_events: Diccionario que contiene el recuento total de eventos para cada combinación 
+    :param total_events: Diccionario que contiene el recuento total de eventos para cada combinación
                         de misión y dispositivo.
     :type total_events: dict
-    :param state_count: Diccionario que contiene el recuento de eventos para cada combinación de misión, 
+    :param state_count: Diccionario que contiene el recuento de eventos para cada combinación de misión,
                         dispositivo y estado.
     :type state_count: dict
     :return: Representación en forma de cadena de la tabla generada.
@@ -272,8 +273,8 @@ def gidt(total_events: Dict, state_count: Dict):  # generate_inoperable_devices_
     table.field_names = ["Misión", "Tipo de Dispositivo", "Dispositivos Inoperables"]
 
     # Filtrar las misiones con 0 dispositivos inoperables
-    filtered_missions = {key[0] for key in total_events.keys()
-                        if state_count.get((key[0], key[1], estado_inoperable), 0) > 0}
+    filtered_missions = {key[0] for key in total_events.keys() if
+                         state_count.get((key[0], key[1], estado_inoperable), 0) > 0}
 
     # Ordenar las misiones alfabéticamente
     sorted_missions = sorted(filtered_missions)
@@ -288,7 +289,7 @@ def gidt(total_events: Dict, state_count: Dict):  # generate_inoperable_devices_
 
 
 def save_report_to_file(report_content: str, report_name: str, reports: Path) -> None:
-    """ 
+    """
     Guarda el contenido de un informe en un archivo en la ruta especificada.
 
     :param report_content: Contenido del informe a guardar.
@@ -301,16 +302,16 @@ def save_report_to_file(report_content: str, report_name: str, reports: Path) ->
     """
     try:
         report_path = reports / report_name
-        with open(report_path, "w") as report_file:
+        with open(report_path, "w") as report_file:  # Pylint W1514, pendiente de resolver
             report_file.write(report_content)
         print(f"El informe se ha guardado en: {report_path}")
-    except IOError as e:  
+    except IOError as e:
         print(f"Error al guardar el informe: {str(e)}")
         raise  # Agregamos esta línea para que el error se propague y se muestre en la consola
 
 
 def process_logs(logs: List[DeviceLog], reports: Path) -> bool:
-    """ 
+    """
     Procesa registros de dispositivos para generar informes y guardarlos en archivos .log.
 
     :param logs: Lista de registros de dispositivos a procesar.
@@ -344,6 +345,6 @@ def process_logs(logs: List[DeviceLog], reports: Path) -> bool:
 
         return True  # Indicador de éxito
 
-    except ValueError as e:  
+    except ValueError as e:
         print(f"Error al procesar los logs: {str(e)}")
         return False  # Indicador de fallo

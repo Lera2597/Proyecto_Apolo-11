@@ -1,5 +1,5 @@
-""" 
-Contiene las funcionalidades para guardar los archivos .log generados en el directorio 'devices' 
+"""
+Contiene las funcionalidades para guardar los archivos .log generados en el directorio 'devices'
 y posteriormente hacer una copia de seguridad en el directorio 'backup'
 """
 
@@ -13,6 +13,8 @@ def crear_archivo_log(dir_salida: str, device: dict, numero: int) -> bool:
     """
     Crea y guarda los archivos .log en el directorio 'devices'
 
+    :param dir_salida: Directorio donde deb crear el archivo .log
+    :type dir_salida: str
     :param device: Diccionario con los datos de los archivos .log
     :type device: dict
     :param numero: El número del archivo

@@ -1,4 +1,5 @@
-""" @Luis falta aquí un mejor docstring
+"""
+Clase que controla las misiones dentro de la simulación
 """
 
 from .device import Device

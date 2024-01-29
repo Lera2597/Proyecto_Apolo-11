@@ -1,6 +1,6 @@
-""" @Luis falta aquí un mejor docstring
 """
-
+Funcionalidad que controla las distintas funciones que son utilizadas por el módulo de datos
+"""
 from random import randint
 from os import path
 from yaml import load, SafeLoader, YAMLError
@@ -43,14 +43,14 @@ def leer_yaml(route: str) -> dict:
 
     :param route: ruta archivo
     :type path: str
-    :return: rdiccionario con los datos YAML, de lo contrario devuelve Ninguno
+    :return: diccionario con los datos YAML, de lo contrario devuelve ninguno
     :rtype: dict
     """
     content: dict = None
     try:
         with open(route, encoding="utf-8") as file:
             content = load(file, Loader=SafeLoader)
-    except YAMLError as ex:  # @Luis mejoré el Exception para que no fuera tan amplio, no sé si ese sea
+    except YAMLError as ex:
         print(ex)
         content = None
     return content

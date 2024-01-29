@@ -1,8 +1,11 @@
 [tool.poetry]
 name = "apolo-11"
 version = "0.1.0"
-description = ""
-authors = ["Lera2597 <lera25.roas@gmail.com>"]
+description = "Proyecto académico para bootcamp realizado con SoftServe"
+license = "MIT"
+authors = ["Lera2597 <lera25.roas@gmail.com>",
+           "juli-amezquita <juliamezquita@gmail.com>",
+           "chaconcesar <chaconcesar@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
@@ -12,6 +15,7 @@ pytest = "^7.4.4"
 pytest-cov = "^4.1.0"
 pydantic = "^2.5.3"
 prettytable = "^3.9.0"
+flake8 = "^7.0.0"
 
 
 [build-system]

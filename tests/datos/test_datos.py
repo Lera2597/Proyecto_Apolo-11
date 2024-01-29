@@ -1,13 +1,14 @@
-"""_summary_
+"""
+Ejecución de pruebas unitarias para el módulo de datos
 """
 from pathlib import Path
 
 
 def test_device(app) -> None:
-    """_summary_
+    """ Funcionalidad para probar la clase device
 
-    :param app: _description_
-    :type app: _type_
+    :param app: Variable de llamado para la invocación de la función
+    :type app: App
     """
     response = app.fun_get_registers_device(["Bueno", "Regular", "Malo"])
 
@@ -18,10 +19,10 @@ def test_device(app) -> None:
 
 
 def test_mission(app) -> None:
-    """_summary_
+    """ Funcionalidad para probar la clase mission
 
-    :param app: _description_
-    :type app: _type_
+    :param app: Variable de llamado para la invocación de la función
+    :type app: App
     """
     response = app.fun_get_registers_mission(["device_1", "device_2", "device_3"], ["Bueno", "Regular", "Malo"])
     assert isinstance(response, list)
@@ -31,10 +32,10 @@ def test_mission(app) -> None:
 
 
 def test_general_leer_yaml(app) -> None:
-    """_summary_
+    """ Funcionalidad para probar la funcionalidad leer yaml
 
-    :param app: _description_
-    :type app: _type_
+    :param app: Variable de llamado para la invocación de la función
+    :type app: App
     """
     path_file: str = Path("apolo_11", "config", "missions.yaml")
     response = app.fun_leer_yaml(path_file)
@@ -42,10 +43,10 @@ def test_general_leer_yaml(app) -> None:
 
 
 def test_generator_simulation_cicle(app) -> None:
-    """_summary_
+    """ Funcionalidad para probar la funcionalidad generator_simulation_cicle
 
-    :param app: _description_
-    :type app: _type_
+    :param app: Variable de llamado para la invocación de la función
+    :type app: App
     """
     data_missions: dict = {
         "mision": ["ORBONE", "CLNM", "TMRS", "GALXONE", "UNKN"],

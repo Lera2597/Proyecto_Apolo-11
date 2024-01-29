@@ -1,13 +1,13 @@
-"""_summary_
 """
-# from pathlib import Path
+Ejecución de pruebas unitarias para el módulo de archivos
+"""
 
 
-def test_nombre(app):
-    """_summary_
+def test_nombre(app) -> None:
+    """ Funcionalidad para probar el archivo nombre
 
-    :param app: _description_
-    :type app: _type_
+    :param app: Variable de llamado para la invocación de la función
+    :type app: App
     """
     mission: str = "ORBONE"
     id_: int = 1
@@ -15,13 +15,12 @@ def test_nombre(app):
     assert app.fun_generar_nombre_archivo(mission, id_) == response
 
 
-def test_gestor(app):
-    """_summary_
+def test_gestor(app) -> None:
+    """ Funcionalidad para probar el archivo gestor
 
-    :param app: _description_
-    :type app: _type_
+    :param app: Variable de llamado para la invocación de la función
+    :type app: App
     """
-    # file_path = Path("Proyecto_Apolo-11", "tests", "Archivos_test")
     registro: dict = {'date': '26012024215450', 'mission': 'ORBONE', 'device': 'satelite', 'state': 'excelente'}
     id_: int = 1
     assert app.fun_crear_archivo_log("Result_test", registro, id_) is True
