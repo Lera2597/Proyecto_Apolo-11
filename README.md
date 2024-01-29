@@ -74,10 +74,6 @@ Para ejecutar la simulación y generar archivos .log con información aleatoria 
 
 Puedes consultar la información generada en las simulaciones anteriores utilizando la opción "Consultar simulaciones" en el menú principal presionando la letra `C` desde tu teclado. Esta función te permitirá ver los reportes de las misiones espaciales.
 
-**Modificar Archivo de Configuración**
-
-Si deseas ajustar la configuración del programa, puedes seleccionar la opción "Modificar archivo de configuración" desde el menú principal presionando la letra `M` desde tu teclado. Esto te permitirá cambiar los parámetros de la simulación, como el número de registros a generar, el tiempo de la simulación, etc.
-
 **Salir del Programa**
 
 Para salir del programa, simplemente selecciona la opción "Salir del programa" desde el menú principal presionando la letra `S` desde tu teclado. Esto cerrará el programa y te devolverá al sistema operativo.
